@@ -111,3 +111,27 @@ Verification (Agent Browser + VLM):
 Stage Summary:
 - Stats counters: numbers now render at full 115px (were 17.9px), suffixes proportional — visual hierarchy restored.
 - Process scroll-storytelling: sticky image panel now stays pinned through the entire steps scroll, crossfading in sync with each step. The "image left behind" issue is fixed.
+
+---
+Task ID: 6
+Agent: main (Z.ai Code)
+Task: Create the video generation prompt for the "We don't just sell slime. We sell the show." creator/studio section; wire up the player to accept the video.
+
+Work Log:
+- Wired up .player in src/app/page.tsx to accept a portrait video background:
+  - Added <video class="player-vid"> (autoplay/muted/loop/playsInline, poster fallback) at z-0.
+  - Added .player-veil (z-1): subtle top darken (28%) for play-button legibility + stronger bottom gradient (72%) for caption readability.
+  - Kept .play button (z-2) and .player-cap (z-2) layered on top.
+  - Coral gradient remains as the player background = graceful fallback until video is dropped in.
+  - Ken Burns slow zoom on the video (22s), prefers-reduced-motion guard.
+- Files referenced (user to drop in /public): studio-clip.mp4 (required), studio-clip-poster.jpg (optional).
+- Crafted a detailed video generation prompt tuned to: portrait 9:16 (or 4:5), content-studio shoot feel, ASMR-satisfying cloud-dough slime macro, warm cream/slime-green/coral/peach/butter palette, NO purple/blue, center kept calm for play button, bottom darker for captions, seamless 8-12s loop.
+
+Verification (Agent Browser):
+- Lint clean, compiles.
+- Player structure confirmed: VIDEO element present, veil + play + cap all present, z-index stacking correct (vid:0 / veil:1 / play:2 / cap:2).
+- No errors (only expected 404s for not-yet-uploaded studio-clip.mp4 + poster).
+- Graceful fallback to coral gradient confirmed.
+
+Stage Summary:
+- Player is wired and ready; user generates the video from the provided prompt and drops it at /public/studio-clip.mp4 (same workflow as the hero video).

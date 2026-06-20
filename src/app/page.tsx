@@ -225,7 +225,11 @@ section{position:relative}
 .creator h2 em{font-style:italic;color:var(--coral)}
 .creator p{font-family:var(--font-grotesk);color:var(--ink-soft);line-height:1.6;margin:1.6rem 0;max-width:32rem}
 .player{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(150deg,var(--peach),var(--coral) 60%,var(--coral-deep));box-shadow:0 40px 80px -40px rgba(230,59,42,.6)}
-.player .gl{position:absolute;width:60%;height:60%;border-radius:50%;background:var(--slime-glow);filter:url(#goo);bottom:-10%;left:-10%;animation:float 8s ease-in-out infinite}
+.player-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;animation:kenburns 22s ease-in-out infinite alternate}
+.player-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,17,9,.28) 0%,rgba(20,17,9,0) 22%,rgba(20,17,9,0) 55%,rgba(20,17,9,.72) 100%)}
+.player .play,.player .player-cap{z-index:2}
+@media(prefers-reduced-motion:reduce){.player-vid{animation:none}}
+.player .gl{position:absolute;width:60%;height:60%;border-radius:50%;background:var(--slime-glow);filter:url(#goo);bottom:-10%;left:-10%;animation:float 8s ease-in-out infinite;z-index:0}
 .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:var(--cream);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:none;transition:transform .3s}
 .play:hover{transform:translate(-50%,-50%) scale(1.1)}
 .play svg{width:26px;margin-left:3px}
@@ -698,7 +702,10 @@ export default function Home() {
                 </ul>
               </div>
               <div className="player reveal d1">
-                <div className="gl" />
+                <video className="player-vid" autoPlay muted loop playsInline preload="auto" poster="/studio-clip-poster.jpg" aria-hidden="true">
+                  <source src="/studio-clip.mp4" type="video/mp4" />
+                </video>
+                <div className="player-veil" aria-hidden="true" />
                 <div className="play" data-magnetic>
                   <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                 </div>
