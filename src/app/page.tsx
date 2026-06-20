@@ -247,18 +247,30 @@ section{position:relative}
 
 /* ---------- testimonials ---------- */
 .testi{padding:7rem 0;background:var(--paper);overflow:hidden}
-.testi-head{margin-bottom:3rem}
+.testi-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:3rem;flex-wrap:wrap}
+.testi-head .hl{max-width:30rem}
 .testi-head h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2.2rem,5vw,4rem);line-height:.98;letter-spacing:-.025em;margin-top:1rem}
 .testi-head h2 em{font-style:italic;color:var(--coral)}
-.ttrack{display:flex;gap:1.4rem;width:max-content;animation:scroll 40s linear infinite}
+.testi-head .agg{display:flex;flex-direction:column;align-items:flex-end;gap:.5rem;text-align:right}
+.testi-head .agg b{font-family:var(--font-display);font-weight:600;font-size:2.6rem;line-height:1;letter-spacing:-.02em}
+.testi-head .agg b i{color:var(--coral);font-style:normal}
+.testi-head .agg span{font-family:var(--font-grotesk);font-size:.82rem;color:var(--ink-mute);max-width:16rem}
+.ttrack{display:flex;gap:1.5rem;width:max-content;animation:scroll 42s linear infinite;padding:.5rem .25rem}
 .testi:hover .ttrack{animation-play-state:paused}
-.tcard{width:min(380px,80vw);background:var(--cream-2);border:1px solid var(--line);border-radius:22px;padding:1.8rem;flex-shrink:0}
-.tcard .stars{color:var(--coral);letter-spacing:.15em;font-size:.9rem;margin-bottom:.9rem}
-.tcard p{font-family:var(--font-display);font-weight:400;font-size:1.18rem;line-height:1.4;color:var(--ink);letter-spacing:-.005em}
-.tcard .who{display:flex;align-items:center;gap:.7rem;margin-top:1.3rem}
-.tcard .av{width:38px;height:38px;border-radius:50%;background:var(--slime);display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-weight:700;color:var(--ink);font-size:.9rem}
-.tcard .who b{font-family:var(--font-grotesk);font-weight:600;font-size:.9rem;display:block}
-.tcard .who span{font-size:.76rem;color:var(--ink-mute)}
+.tcard{width:min(380px,80vw);background:var(--cream-2);border:1px solid var(--line);border-radius:24px;padding:2rem 1.9rem 1.7rem;flex-shrink:0;display:flex;flex-direction:column;gap:1.1rem;transition:transform .35s,box-shadow .35s,background .35s}
+.tcard:hover{transform:translateY(-6px);box-shadow:0 30px 60px -34px rgba(20,17,9,.4);background:var(--cream)}
+.tcard .quote-mark{font-family:var(--font-display);font-weight:700;font-size:3rem;line-height:.6;color:var(--slime);height:1.2rem}
+.tcard .stars{color:var(--coral);letter-spacing:.12em;font-size:.92rem;display:flex;align-items:center;gap:.5rem}
+.tcard .stars span{color:var(--ink-mute);font-family:var(--font-grotesk);font-size:.74rem;letter-spacing:.04em}
+.tcard p{font-family:var(--font-display);font-weight:400;font-size:1.2rem;line-height:1.42;color:var(--ink);letter-spacing:-.005em;flex:1}
+.tcard .who{display:flex;align-items:center;gap:.85rem;padding-top:1rem;border-top:1px solid var(--line)}
+.tcard .av{width:46px;height:46px;border-radius:50%;object-fit:cover;flex-shrink:0;box-shadow:0 0 0 2px var(--cream-2),0 0 0 3px var(--slime)}
+.tcard .who .meta{flex:1;min-width:0}
+.tcard .who .meta b{font-family:var(--font-grotesk);font-weight:600;font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+.tcard .who .meta b svg{width:14px;height:14px;color:var(--slime-deep);flex-shrink:0}
+.tcard .who .meta span{font-size:.76rem;color:var(--ink-mute);display:block;margin-top:.1rem}
+.tcard .prod{display:inline-flex;align-items:center;gap:.4rem;font-family:var(--font-grotesk);font-size:.72rem;letter-spacing:.04em;color:var(--ink-soft);background:var(--paper);border:1px solid var(--line);padding:.3rem .65rem;border-radius:999px;align-self:flex-start}
+.tcard .prod i{width:8px;height:8px;border-radius:50%;font-style:normal}
 
 /* ---------- cta ---------- */
 .cta{padding:8rem 0;text-align:center;position:relative;overflow:hidden}
@@ -725,28 +737,42 @@ export default function Home() {
         <section className="testi">
           <div className="wrap">
             <div className="testi-head reveal">
-              <span className="eyebrow">The reviews</span>
-              <h2>People are <em>obsessed.</em></h2>
+              <div className="hl">
+                <span className="eyebrow">The reviews</span>
+                <h2>People are <em>obsessed.</em></h2>
+              </div>
+              <div className="agg">
+                <b>4.9<i>/5</i></b>
+                <span>across 40,000+ verified reviews</span>
+              </div>
             </div>
           </div>
           <div className="ttrack">
             {[
-              { q: "The texture is unreal. I've ordered from a dozen shops and nothing comes close to Slimeatory.", n: "Maya R.", role: "Verified buyer", i: "M" },
-              { q: "My package arrived in two days and the slime was still cold from being made. Insane quality.", n: "Devin K.", role: "Repeat customer", i: "D" },
-              { q: "Their content got me hooked, the product kept me. Cloud Dough is now my comfort purchase.", n: "Aisha L.", role: "Subscriber", i: "A" },
-              { q: "You can tell every jar is hand-checked. No leaks, no defects, perfect stretch every single time.", n: "Sofia M.", role: "Verified buyer", i: "S" },
-              { q: "The drops sell out in minutes for a reason. This is the best slime on the internet.", n: "Jordan T.", role: "Collector", i: "J" },
+              { q: "The texture is unreal. I've ordered from a dozen shops and nothing comes close to Slimeatory.", n: "Maya R.", role: "Verified buyer · Austin, TX", av: "/avatars/maya.png", prod: "Cloud Dough", dot: "#FFD96A" },
+              { q: "My package arrived in two days and the slime was still cold from being made. Insane quality.", n: "Devin K.", role: "Repeat customer · Portland, OR", av: "/avatars/devin.png", prod: "Glossy Glow", dot: "#B6E84A" },
+              { q: "Their content got me hooked, the product kept me. Cloud Dough is now my comfort purchase.", n: "Aisha L.", role: "Subscriber · Toronto, ON", av: "/avatars/aisha.png", prod: "Cloud Dough", dot: "#FFD96A" },
+              { q: "You can tell every jar is hand-checked. No leaks, no defects, perfect stretch every single time.", n: "Sofia M.", role: "Verified buyer · Phoenix, AZ", av: "/avatars/sofia.png", prod: "Butter Bliss", dot: "#FFC9A6" },
+              { q: "The drops sell out in minutes for a reason. This is the best slime on the internet.", n: "Jordan T.", role: "Collector · Brooklyn, NY", av: "/avatars/jordan.png", prod: "Jelly Burst", dot: "#FF8AA8" },
             ].concat([
-              { q: "The texture is unreal. I've ordered from a dozen shops and nothing comes close to Slimeatory.", n: "Maya R.", role: "Verified buyer", i: "M" },
-              { q: "My package arrived in two days and the slime was still cold from being made. Insane quality.", n: "Devin K.", role: "Repeat customer", i: "D" },
-              { q: "Their content got me hooked, the product kept me. Cloud Dough is now my comfort purchase.", n: "Aisha L.", role: "Subscriber", i: "A" },
+              { q: "The texture is unreal. I've ordered from a dozen shops and nothing comes close to Slimeatory.", n: "Maya R.", role: "Verified buyer · Austin, TX", av: "/avatars/maya.png", prod: "Cloud Dough", dot: "#FFD96A" },
+              { q: "My package arrived in two days and the slime was still cold from being made. Insane quality.", n: "Devin K.", role: "Repeat customer · Portland, OR", av: "/avatars/devin.png", prod: "Glossy Glow", dot: "#B6E84A" },
+              { q: "Their content got me hooked, the product kept me. Cloud Dough is now my comfort purchase.", n: "Aisha L.", role: "Subscriber · Toronto, ON", av: "/avatars/aisha.png", prod: "Cloud Dough", dot: "#FFD96A" },
             ]).map((t, i) => (
               <div className="tcard" key={i}>
-                <div className="stars">★★★★★</div>
-                <p>“{t.q}”</p>
+                <div className="quote-mark" aria-hidden="true">&ldquo;</div>
+                <div className="stars">★★★★★<span>5.0</span></div>
+                <p>{t.q}</p>
+                <div className="prod"><i style={{ background: t.dot }} />{t.prod}</div>
                 <div className="who">
-                  <div className="av">{t.i}</div>
-                  <div><b>{t.n}</b><span>{t.role}</span></div>
+                  <img className="av" src={t.av} alt={t.n} loading="lazy" />
+                  <div className="meta">
+                    <b>
+                      {t.n}
+                      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0l2.4 2.4 3.4-.6 1.2 3.3 3.3 1.2-.6 3.4L24 12l-2.4 2.4.6 3.4-3.3 1.2-1.2 3.3-3.4-.6L12 24l-2.4-2.4-3.4.6-1.2-3.3-3.3-1.2.6-3.4L0 12l2.4-2.4-.6-3.4 3.3-1.2 1.2-3.3 3.4.6z" opacity="0"/><path d="M9.5 16.1l-3.7-3.7 1.4-1.4 2.3 2.3 6.3-6.3 1.4 1.4z"/></svg>
+                    </b>
+                    <span>{t.role}</span>
+                  </div>
                 </div>
               </div>
             ))}

@@ -135,3 +135,27 @@ Verification (Agent Browser):
 
 Stage Summary:
 - Player is wired and ready; user generates the video from the provided prompt and drops it at /public/studio-clip.mp4 (same workflow as the hero video).
+
+---
+Task ID: 7
+Agent: main (Z.ai Code)
+Task: Revamp the reviews/testimonials section with real human avatars.
+
+Work Log:
+- Generated 5 diverse real human headshot avatars via z-ai image CLI (1024x1024, plain warm cream backgrounds, candid lifestyle style, warm tones, NO purple/blue): public/avatars/{maya,devin,aisha,sofia,jordan}.png. VLM-verified all 5 as natural real human headshots, no distortions.
+- Revamped testimonials CSS (.testi/.tcard/.who/.prod/.agg):
+  - Header now split: headline left + aggregate rating "4.9/5" block right ("across 40,000+ verified reviews").
+  - Cards: 24px radius, flex column, hover lift + shadow + bg shift, green oversized quote-mark at top.
+  - Stars row now shows "5.0" numeric next to the 5 coral stars.
+  - Product pill tag: small rounded pill with colored dot matching the product (Cloud Dough=butter, Glossy Glow=slime-green, Butter Bliss=peach, Jelly Burst=pink).
+  - Who row: 46px circular PHOTO avatar (object-fit cover) with double ring (cream + slime-green), name with inline verified checkmark SVG (slime-deep green), role with city/state ("Verified buyer · Austin, TX").
+  - Marquee slowed slightly (42s), pauses on hover.
+- Updated JSX: 5 reviewers each with av (image path), prod (product name), dot (product color), role with location. Verified checkmark as inline SVG path. Removed old letter-avatar approach.
+
+Verification (Agent Browser + VLM):
+- Lint clean. DOM: all 5 avatars loaded (complete=true, naturalWidth>0), 8 verified SVG checkmarks, 8 product pills, aggregate "4.9/5" present. No errors.
+- VLM single-card close-up: confirmed real circular human headshots, dark-green checkmarks next to names, product pills with colored dots, green quote marks at top. (Full-page VLM couldn't resolve 46px avatars in scrolling marquee, but single-card close-up confirmed all elements.)
+
+Stage Summary:
+- Reviews section fully revamped: real human photo avatars with green rings, verified checkmarks, product tags with color dots, aggregate rating header, green quote marks, hover-lift cards.
+- Avatars at /public/avatars/*.png.
