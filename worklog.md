@@ -159,3 +159,23 @@ Verification (Agent Browser + VLM):
 Stage Summary:
 - Reviews section fully revamped: real human photo avatars with green rings, verified checkmarks, product tags with color dots, aggregate rating header, green quote marks, hover-lift cards.
 - Avatars at /public/avatars/*.png.
+
+---
+Task ID: 8
+Agent: main (Z.ai Code)
+Task: Insert the user-provided studio-clip.mp4 into the "We sell the show" creator section.
+
+Work Log:
+- Copied /home/z/my-project/upload/studio-clip.mp4 -> /home/z/my-project/public/studio-clip.mp4 (2.0MB). Player code from Task 6 already referenced /studio-clip.mp4, so it picked it up with no code change needed for the file itself.
+- Fixed caption legibility over the now-brighter real video footage:
+  - .player-veil bottom gradient strengthened from 72% -> 92% opacity (and starts earlier at 48% instead of 55%); top darken 28% -> 42% for play-button contrast.
+  - Added text-shadow:0 1px 8px rgba(20,17,9,.6) to .player-cap; bumped cap span opacity .85 -> .95.
+
+Verification (Agent Browser + VLM):
+- Video: readyState=4, paused=false, currentSrc resolves to /studio-clip.mp4, autoplay working. Layering correct (vid z-0 / veil z-1 / play z-2 / cap z-2). No console/page errors.
+- VLM on cropped bottom strip of player: confirmed "Cloud Dough · fresh batch" + "filmed 2 hrs ago" (white) on the left, "LIVE DROP" pill with green dot on the right — all legible over the video footage.
+
+Stage Summary:
+- Studio clip is live and playing in the "We sell the show" section at http://localhost:3000 (preview via Preview Panel).
+- Caption + live badge now read cleanly over the real footage (veil + text-shadow fix).
+- File: /home/z/my-project/public/studio-clip.mp4. To swap later, replace the file with the same name.

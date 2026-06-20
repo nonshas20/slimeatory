@@ -226,16 +226,16 @@ section{position:relative}
 .creator p{font-family:var(--font-grotesk);color:var(--ink-soft);line-height:1.6;margin:1.6rem 0;max-width:32rem}
 .player{position:relative;border-radius:26px;overflow:hidden;aspect-ratio:4/5;background:linear-gradient(150deg,var(--peach),var(--coral) 60%,var(--coral-deep));box-shadow:0 40px 80px -40px rgba(230,59,42,.6)}
 .player-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;animation:kenburns 22s ease-in-out infinite alternate}
-.player-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,17,9,.28) 0%,rgba(20,17,9,0) 22%,rgba(20,17,9,0) 55%,rgba(20,17,9,.72) 100%)}
+.player-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,17,9,.42) 0%,rgba(20,17,9,0) 20%,rgba(20,17,9,0) 48%,rgba(20,17,9,.92) 100%)}
 .player .play,.player .player-cap{z-index:2}
 @media(prefers-reduced-motion:reduce){.player-vid{animation:none}}
 .player .gl{position:absolute;width:60%;height:60%;border-radius:50%;background:var(--slime-glow);filter:url(#goo);bottom:-10%;left:-10%;animation:float 8s ease-in-out infinite;z-index:0}
 .play{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:84px;height:84px;border-radius:50%;background:var(--cream);color:var(--ink);display:flex;align-items:center;justify-content:center;cursor:none;transition:transform .3s}
 .play:hover{transform:translate(-50%,-50%) scale(1.1)}
 .play svg{width:26px;margin-left:3px}
-.player-cap{position:absolute;left:1.3rem;bottom:1.3rem;right:1.3rem;display:flex;justify-content:space-between;align-items:flex-end;color:var(--cream);font-family:var(--font-grotesk)}
+.player-cap{position:absolute;left:1.3rem;bottom:1.3rem;right:1.3rem;display:flex;justify-content:space-between;align-items:flex-end;color:var(--cream);font-family:var(--font-grotesk);text-shadow:0 1px 8px rgba(20,17,9,.6)}
 .player-cap b{font-family:var(--font-display);font-weight:600;font-size:1.2rem;display:block}
-.player-cap span{font-size:.78rem;opacity:.85}
+.player-cap span{font-size:.78rem;opacity:.95}
 .live{display:inline-flex;align-items:center;gap:.4rem;background:rgba(20,17,9,.4);backdrop-filter:blur(6px);padding:.4rem .7rem;border-radius:999px;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase}
 .live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--slime);animation:pulse2 1.4s infinite}
 @keyframes pulse2{50%{opacity:.3}}
