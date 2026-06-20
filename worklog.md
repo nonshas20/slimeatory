@@ -72,3 +72,24 @@ Stage Summary:
 - Products section now shows real slime texture photography in organic blob masks.
 - Process section is now a dynamic scroll-storytelling experience: sticky image crossfades + caption + dot progress as you scroll through the 5 steps.
 - Verified end-to-end on desktop + mobile at http://localhost:3000 (Preview Panel).
+
+---
+Task ID: 4
+Agent: main (Z.ai Code)
+Task: Improve the stats counter section — texts too small.
+
+Work Log:
+- src/app/page.tsx stats CSS updated:
+  - Counter number: clamp(3rem,7vw,5.4rem) -> clamp(3.6rem,9vw,8rem) (rendered ~115px desktop, was ~86px).
+  - Label: .9rem -> clamp(1rem,1.4vw,1.18rem) (~18px, was 14px), opacity .6 -> .72, added line-height + max-width 14ch for wrap.
+  - Suffix (+, ★, M) now sized at .62em of the number so it scales proportionally.
+  - Added a 34px slime-green accent line above each stat (padding-top 1.6rem).
+  - Bumped section padding 6rem -> 7rem, grid gap 2rem -> 2.4rem (mobile 2.8rem/1.5rem).
+
+Verification (Agent Browser + VLM):
+- Number fontSize 115.2px, label 17.92px confirmed via getComputedStyle.
+- VLM: numbers large and prominent, labels readable, green accent lines present, no overlap, premium and impactful.
+- No errors.
+
+Stage Summary:
+- Stats counters are now significantly larger and more impactful; section padding/spacing tuned to match.
