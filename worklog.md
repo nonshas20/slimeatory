@@ -93,3 +93,21 @@ Verification (Agent Browser + VLM):
 
 Stage Summary:
 - Stats counters are now significantly larger and more impactful; section padding/spacing tuned to match.
+
+---
+Task ID: 5
+Agent: main (Z.ai Code)
+Task: Fix stats counter numbers (too small/inverted) and fix process section scroll behavior (sticky image not staying with scroll).
+
+Work Log:
+- Diagnosed stats bug via getComputedStyle: the counter <span data-count> inside <b> was rendering at 17.92px while the .suf (M+,★,+,M) was 71px — completely inverted. Root cause: CSS rule `.stat span{...label styles...}` was matching BOTH the label AND the number span (descendant), shrinking the number. Fix: scoped to `.stat > span` (direct child only) so it only styles the label.
+- Diagnosed process sticky bug: scrolled through steps and measured panel top — went from top=296 to top=-1304 (scrolled off screen) instead of staying pinned. Root cause: `.process{overflow:hidden}` creates a non-scrolling overflow container that becomes the sticky's containing block, breaking position:sticky. Secondary risk: `body{overflow-x:hidden}` can also break sticky by making body a scroll container. Fixes: removed `overflow:hidden` from `.process`; changed body `overflow-x:hidden` -> `overflow-x:clip` (clip prevents horizontal scroll WITHOUT creating a scroll container, so sticky keeps working).
+
+Verification (Agent Browser + VLM):
+- Stats: num fontSize now 115.2px, suf 71.424px (proportional, number dominant). VLM: "numbers large and visually dominant, suffixes smaller and proportional, labels readable, layout balanced, no issues."
+- Process sticky: scrolled to each of 5 steps — panel held at top=104 (target 6.5rem) for steps 0-3, released naturally at step 4 (end of container). Caption synced Source->Formulate->Hand-mix->Content->Ship correctly.
+- About-text sticky still works (top=16, pos=sticky) — no regression from overflow change. No console/page errors.
+
+Stage Summary:
+- Stats counters: numbers now render at full 115px (were 17.9px), suffixes proportional — visual hierarchy restored.
+- Process scroll-storytelling: sticky image panel now stays pinned through the entire steps scroll, crossfading in sync with each step. The "image left behind" issue is fixed.

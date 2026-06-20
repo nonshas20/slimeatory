@@ -28,7 +28,7 @@ body{
   background:var(--cream);
   color:var(--ink);
   font-family:var(--font-sans);
-  overflow-x:hidden;
+  overflow-x:clip;
   cursor:none;
 }
 @media(hover:none){body{cursor:auto}}
@@ -176,7 +176,7 @@ section{position:relative}
 .add i{width:30px;height:30px;border-radius:50%;background:var(--slime);color:var(--ink);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700}
 
 /* ---------- process (scroll storytelling) ---------- */
-.process{padding:8rem 0;overflow:hidden}
+.process{padding:8rem 0}
 .process-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:4rem;flex-wrap:wrap}
 .process-head h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2.2rem,5vw,4rem);line-height:.98;letter-spacing:-.025em;margin-top:1rem}
 .process-head h2 em{font-style:italic;color:var(--coral)}
@@ -215,7 +215,7 @@ section{position:relative}
 .stat::before{content:"";position:absolute;top:0;left:0;width:34px;height:2px;background:var(--slime)}
 .stat b{font-family:var(--font-display);font-weight:500;font-size:clamp(3.6rem,9vw,8rem);line-height:.92;letter-spacing:-.035em;display:flex;align-items:baseline;gap:.02em}
 .stat b .suf{color:var(--slime);font-size:.62em}
-.stat span{font-family:var(--font-grotesk);font-size:clamp(1rem,1.4vw,1.18rem);color:rgba(246,239,224,.72);letter-spacing:.01em;margin-top:1rem;display:block;line-height:1.35;max-width:14ch}
+.stat > span{font-family:var(--font-grotesk);font-size:clamp(1rem,1.4vw,1.18rem);color:rgba(246,239,224,.72);letter-spacing:.01em;margin-top:1rem;display:block;line-height:1.35;max-width:14ch}
 
 /* ---------- content/creator ---------- */
 .creator{padding:8rem 0}
