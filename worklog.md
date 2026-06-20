@@ -23,3 +23,22 @@ Stage Summary:
 - Landing page complete and browser-verified at http://localhost:3000 (preview via Preview Panel).
 - Single-file design (page.tsx) with embedded CSS; no external assets beyond Google Fonts.
 - Aesthetic: premium, tactile, on-brand for handcrafted slime — deliberately not generic SaaS.
+
+---
+Task ID: 2
+Agent: main (Z.ai Code)
+Task: Add a video background to the Slimeatory hero; user provided hero-bg.mp4 via upload.
+
+Work Log:
+- Wired hero in src/app/page.tsx: added full-bleed <video class="hero-bg"> (autoplay/muted/loop/playsInline, poster fallback) at z-0, a cream gradient veil (.hero-veil) at z-1 for headline legibility (~96% opaque left -> ~40% right; switches to vertical gradient on mobile), Ken Burns zoom animation, prefers-reduced-motion guard. Floating slime blobs + content layered above at z-2.
+- User uploaded hero-bg.mp4 to /home/z/my-project/upload/hero-bg.mp4 (2.0MB).
+- Copied to /home/z/my-project/public/hero-bg.mp4 so Next.js serves it at /hero-bg.mp4.
+
+Verification (Agent Browser + VLM):
+- Video element: readyState=4, paused=false, currentSrc resolves, no console/page errors. Autoplay working.
+- VLM: slime texture visible behind headline; headline "Slime worth obsessing over, hands down" fully readable and crisp; warm palette (cream/slime-green/coral), NO purple; contrast well-managed, no rendering issues.
+
+Stage Summary:
+- Hero video background is live at http://localhost:3000 (preview via Preview Panel).
+- File location: /home/z/my-project/public/hero-bg.mp4.
+- To swap the video later, just replace public/hero-bg.mp4 with the same filename.
