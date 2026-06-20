@@ -93,7 +93,15 @@ section{position:relative}
 .hero .line:nth-child(3)>span{transition-delay:.24s}
 
 /* ---------- hero ---------- */
-.hero{min-height:100vh;display:flex;align-items:center;padding:7rem 0 4rem;overflow:hidden}
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;padding:7rem 0 4rem;overflow:hidden;background:var(--cream)}
+.hero-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;animation:kenburns 26s ease-in-out infinite alternate}
+.hero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(100deg,rgba(246,239,224,.96) 0%,rgba(246,239,224,.88) 32%,rgba(246,239,224,.4) 64%,rgba(246,239,224,.6) 100%)}
+.hero .wrap{position:relative;z-index:2}
+.hero-vis{position:relative;z-index:2}
+.hero-vis .blob{opacity:.85}
+@keyframes kenburns{from{transform:scale(1.04) translate(0,0)}to{transform:scale(1.14) translate(-1.5%,-1.5%)}}
+@media(max-width:900px){.hero-veil{background:linear-gradient(180deg,rgba(246,239,224,.92) 0%,rgba(246,239,224,.6) 45%,rgba(246,239,224,.9) 100%)}}
+@media(prefers-reduced-motion:reduce){.hero-bg{animation:none}}
 .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:3rem;align-items:center;width:100%}
 @media(max-width:900px){.hero-grid{grid-template-columns:1fr;gap:2rem}}
 .hero h1{font-family:var(--font-display);font-weight:500;font-size:clamp(3rem,9.5vw,8.4rem);line-height:.93;letter-spacing:-.035em}
@@ -450,6 +458,10 @@ export default function Home() {
 
         {/* HERO */}
         <header className="hero reveal" id="top">
+          <video className="hero-bg" autoPlay muted loop playsInline preload="auto" poster="/hero-bg-poster.jpg" aria-hidden="true">
+            <source src="/hero-bg.mp4" type="video/mp4" />
+          </video>
+          <div className="hero-veil" aria-hidden="true" />
           <div className="wrap" style={{ width: "100%" }}>
             <div className="hero-grid">
               <div>
