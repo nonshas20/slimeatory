@@ -161,9 +161,10 @@ section{position:relative}
 @media(max-width:560px){.prod-grid{grid-template-columns:1fr}}
 .card{position:relative;border-radius:24px;overflow:hidden;background:var(--cream-2);border:1px solid var(--line);transition:transform .3s,box-shadow .3s;transform-style:preserve-3d;will-change:transform}
 .card:hover{box-shadow:0 30px 60px -30px rgba(20,17,9,.45)}
-.card-vis{aspect-ratio:5/4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.swatch{position:absolute;width:74%;height:74%;border-radius:46% 54% 55% 45%/52% 46% 54% 48%;filter:url(#goo);transition:transform .5s cubic-bezier(.2,.8,.2,1)}
-.card:hover .swatch{transform:scale(1.1) rotate(4deg)}
+.card-vis{aspect-ratio:5/4;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;background:var(--cream)}
+.swatch{position:absolute;width:80%;height:80%;border-radius:46% 54% 55% 45%/52% 46% 54% 48%;background-size:cover;background-position:center;box-shadow:inset 0 0 0 1px rgba(20,17,9,.06),0 22px 44px -26px rgba(20,17,9,.55);transition:transform .6s cubic-bezier(.2,.8,.2,1),border-radius .6s}
+.card:hover .swatch{transform:scale(1.08) rotate(3deg);border-radius:52% 48% 45% 55%/48% 52% 48% 52%}
+.card-vis::after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 70% 20%,rgba(255,255,255,.25),transparent 50%);pointer-events:none;mix-blend-mode:overlay}
 .card-tag{position:absolute;top:1rem;left:1rem;font-family:var(--font-grotesk);font-size:.68rem;letter-spacing:.18em;text-transform:uppercase;background:var(--ink);color:var(--cream);padding:.35rem .7rem;border-radius:999px;z-index:2}
 .card-body{padding:1.3rem 1.4rem 1.5rem;display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
 .card-body h3{font-family:var(--font-display);font-weight:600;font-size:1.45rem;letter-spacing:-.01em;line-height:1.05}
@@ -174,19 +175,36 @@ section{position:relative}
 .add span{font-family:var(--font-grotesk);font-weight:600;font-size:.86rem}
 .add i{width:30px;height:30px;border-radius:50%;background:var(--slime);color:var(--ink);display:flex;align-items:center;justify-content:center;font-style:normal;font-weight:700}
 
-/* ---------- process ---------- */
-.process{padding:8rem 0}
+/* ---------- process (scroll storytelling) ---------- */
+.process{padding:8rem 0;overflow:hidden}
 .process-head{display:flex;justify-content:space-between;align-items:flex-end;gap:2rem;margin-bottom:4rem;flex-wrap:wrap}
 .process-head h2{font-family:var(--font-display);font-weight:500;font-size:clamp(2.2rem,5vw,4rem);line-height:.98;letter-spacing:-.025em;margin-top:1rem}
 .process-head h2 em{font-style:italic;color:var(--coral)}
-.steps{display:grid;gap:0}
-.step{display:grid;grid-template-columns:auto 1fr 1.4fr;gap:clamp(1.4rem,5vw,4rem);align-items:center;padding:2.4rem 0;border-top:1px solid var(--line);transition:padding .4s}
-.step:last-child{border-bottom:1px solid var(--line)}
-.step:hover{padding-left:1rem}
-.step .n{font-family:var(--font-display);font-weight:500;font-size:clamp(2.4rem,5vw,4rem);color:var(--coral);line-height:1;letter-spacing:-.02em}
-.step h3{font-family:var(--font-display);font-weight:600;font-size:clamp(1.5rem,2.6vw,2.1rem);letter-spacing:-.015em}
-.step p{font-family:var(--font-grotesk);color:var(--ink-soft);line-height:1.55;font-size:.98rem}
-@media(max-width:760px){.step{grid-template-columns:auto 1fr}.step p{grid-column:1/-1}}
+.story{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(2rem,6vw,5rem);align-items:start}
+@media(max-width:880px){.story{grid-template-columns:1fr;gap:0}}
+.story-vis{position:sticky;top:6.5rem;height:74vh;border-radius:26px;overflow:hidden;background:var(--cream-2);border:1px solid var(--line);box-shadow:0 40px 80px -50px rgba(20,17,9,.5)}
+@media(max-width:880px){.story-vis{display:none}}
+.story-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.1);transition:opacity 1s cubic-bezier(.2,.8,.2,1),transform 1.6s cubic-bezier(.2,.8,.2,1)}
+.story-img.active{opacity:1;transform:scale(1)}
+.story-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(20,17,9,0) 35%,rgba(20,17,9,.62) 100%)}
+.story-meta{position:absolute;left:1.5rem;bottom:1.4rem;right:1.5rem;z-index:2;color:var(--cream);display:flex;justify-content:space-between;align-items:flex-end;gap:1rem}
+.story-meta b{font-family:var(--font-display);font-weight:600;font-size:1.7rem;display:block;line-height:1;letter-spacing:-.01em;transition:opacity .4s}
+.story-meta .count{font-family:var(--font-grotesk);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;opacity:.72}
+.dots{display:flex;gap:.4rem;align-items:center}
+.dots i{width:7px;height:7px;border-radius:50%;background:rgba(246,239,224,.32);transition:background .35s,width .35s}
+.dots i.active{background:var(--slime);width:24px;border-radius:999px}
+.steps{display:flex;flex-direction:column}
+.step{min-height:64vh;display:flex;flex-direction:column;justify-content:center;padding:1.5rem 0;border-top:1px solid var(--line);position:relative}
+.step:first-child{border-top:0}
+.step .n{font-family:var(--font-display);font-weight:500;font-size:clamp(2.6rem,5.5vw,4.4rem);color:var(--coral);line-height:1;letter-spacing:-.02em}
+.step h3{font-family:var(--font-display);font-weight:600;font-size:clamp(1.7rem,3.2vw,2.6rem);margin-top:.7rem;letter-spacing:-.015em}
+.step p{font-family:var(--font-grotesk);color:var(--ink-soft);line-height:1.6;font-size:1.02rem;margin-top:.9rem;max-width:30rem}
+.step-img{display:none;margin:1rem 0 1.6rem;border-radius:18px;overflow:hidden;aspect-ratio:4/3;box-shadow:0 20px 40px -26px rgba(20,17,9,.5)}
+.step-img img{width:100%;height:100%;object-fit:cover}
+@media(max-width:880px){
+  .step{min-height:auto;padding:2rem 0}
+  .step-img{display:block}
+}
 
 /* ---------- stats ---------- */
 .stats{background:var(--ink);color:var(--cream);padding:6rem 0;position:relative;overflow:hidden}
@@ -276,22 +294,27 @@ section{position:relative}
 `;
 
 const PRODUCTS = [
-  { name: "Cloud Dough", texture: "Pillowy · holdable", price: "$18", tag: "Bestseller", c1: "#FFD96A", c2: "#FFB347" },
-  { name: "Glossy Glow", texture: "Stretchy · mirror shine", price: "$22", tag: "New", c1: "#B6E84A", c2: "#7CB12B" },
-  { name: "Butter Bliss", texture: "Spreadable · airy", price: "$20", tag: "Fan fav", c1: "#FFC9A6", c2: "#FF9E7D" },
-  { name: "Jelly Burst", texture: "Jiggly · clear base", price: "$24", tag: "Limited", c1: "#FF8AA8", c2: "#FF5A47" },
-  { name: "Crunch Stack", texture: "Bubbly · audible", price: "$21", tag: "ASMR", c1: "#9FE7E0", c2: "#5BBFB8" },
-  { name: "Magnetic Mud", texture: "Firm · putty", price: "$26", tag: "Restock", c1: "#C9A7FF", c2: "#9C7BE0" },
+  { name: "Cloud Dough",  texture: "Pillowy · holdable",      price: "$18", tag: "Bestseller", img: "/textures/cloud-dough.png" },
+  { name: "Glossy Glow",  texture: "Stretchy · mirror shine", price: "$22", tag: "New",        img: "/textures/glossy-glow.png" },
+  { name: "Butter Bliss", texture: "Spreadable · airy",       price: "$20", tag: "Fan fav",    img: "/textures/butter-bliss.png" },
+  { name: "Jelly Burst",  texture: "Jiggly · clear base",     price: "$24", tag: "Limited",    img: "/textures/jelly-burst.png" },
+  { name: "Crunch Stack", texture: "Bubbly · audible",        price: "$21", tag: "ASMR",       img: "/textures/crunch-stack.png" },
+  { name: "Magnetic Mud", texture: "Firm · putty",            price: "$26", tag: "Restock",    img: "/textures/magnetic-mud.png" },
 ];
-
-// swap last product color to avoid purple -> use butter/coral
-PRODUCTS[5] = { name: "Magnetic Mud", texture: "Firm · putty", price: "$26", tag: "Restock", c1: "#FFB347", c2: "#E63B2A" };
 
 const STATS = [
   { n: 2, suf: "M+", label: "Jars shipped worldwide" },
   { n: 4.9, suf: "★", label: "Average rating", dec: 1 },
   { n: 180, suf: "+", label: "Original recipes" },
   { n: 12, suf: "M", label: "Community across platforms" },
+];
+
+const STEPS = [
+  { n: "01", t: "Source",    d: "Skin-safe, US-made ingredients. We test every raw material before it enters the kitchen.", img: "/process/01-source.png" },
+  { n: "02", t: "Formulate", d: "180+ recipes, each tuned for stretch, hold, sound, and that addictive hand-feel.",    img: "/process/02-formulate.png" },
+  { n: "03", t: "Hand-mix",  d: "Small batches mixed and colored by hand. No two jars are ever perfectly identical.", img: "/process/03-mix.png" },
+  { n: "04", t: "Content",   d: "Every batch gets filmed the same day. The texture you see is the texture you get.",  img: "/process/04-content.png" },
+  { n: "05", t: "Ship",      d: "Hand-checked, sealed, and out the door within 48 hours of being made.",              img: "/process/05-ship.png" },
 ];
 
 export default function Home() {
@@ -357,6 +380,37 @@ export default function Home() {
     );
     document.querySelectorAll(".reveal,.cta").forEach((el) => io.observe(el));
 
+    // ---- scroll storytelling (process) ----
+    const stepEls = Array.from(document.querySelectorAll<HTMLElement>(".step[data-idx]"));
+    const imgs = Array.from(document.querySelectorAll<HTMLElement>(".story-img"));
+    const dots = Array.from(document.querySelectorAll<HTMLElement>(".dots i"));
+    const cap = $(".story-cap") as HTMLElement | null;
+    let sio: IntersectionObserver | null = null;
+    const setActive = (idx: number) => {
+      imgs.forEach((im, i) => im.classList.toggle("active", i === idx));
+      dots.forEach((d, i) => d.classList.toggle("active", i === idx));
+      if (cap && stepEls[idx]) cap.textContent = stepEls[idx].querySelector("h3")?.textContent || "";
+    };
+    if (stepEls.length) {
+      sio = new IntersectionObserver(
+        (entries) => {
+          // pick the entry closest to viewport center that is intersecting
+          let best: { idx: number; dist: number } | null = null;
+          entries.forEach((e) => {
+            if (!e.isIntersecting) return;
+            const r = e.target.getBoundingClientRect();
+            const center = r.top + r.height / 2;
+            const dist = Math.abs(center - window.innerHeight / 2);
+            const idx = stepEls.indexOf(e.target as HTMLElement);
+            if (!best || dist < best.dist) best = { idx, dist };
+          });
+          if (best && best.idx >= 0) setActive(best.idx);
+        },
+        { rootMargin: "-40% 0px -40% 0px", threshold: 0 }
+      );
+      stepEls.forEach((s) => sio!.observe(s));
+    }
+
     // ---- counters ----
     const cio = new IntersectionObserver(
       (entries) => {
@@ -412,6 +466,7 @@ export default function Home() {
       window.removeEventListener("scroll", onScroll);
       io.disconnect();
       cio.disconnect();
+      sio?.disconnect();
     };
   }, []);
 
@@ -551,7 +606,7 @@ export default function Home() {
                 <article className="card tilt reveal" style={{ transitionDelay: `${i * 0.06}s` }} key={p.name}>
                   <div className="card-vis">
                     <span className="card-tag">{p.tag}</span>
-                    <div className="swatch" style={{ background: `linear-gradient(140deg, ${p.c1}, ${p.c2})` }} />
+                    <div className="swatch" style={{ backgroundImage: `url(${p.img})` }} />
                   </div>
                   <div className="card-body">
                     <div>
@@ -567,7 +622,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* PROCESS */}
+        {/* PROCESS — scroll storytelling */}
         <section className="process" id="process">
           <div className="wrap">
             <div className="process-head reveal">
@@ -576,20 +631,33 @@ export default function Home() {
                 <h2>How a jar of Slimeatory <em>gets made.</em></h2>
               </div>
             </div>
-            <div className="steps">
-              {[
-                { n: "01", t: "Source", d: "Skin-safe, US-made ingredients. We test every raw material before it enters the kitchen." },
-                { n: "02", t: "Formulate", d: "180+ recipes, each tuned for stretch, hold, sound, and that addictive hand-feel." },
-                { n: "03", t: "Hand-mix", d: "Small batches mixed and colored by hand. No two jars are ever perfectly identical." },
-                { n: "04", t: "Content", d: "Every batch gets filmed the same day. The texture you see is the texture you get." },
-                { n: "05", t: "Ship", d: "Hand-checked, sealed, and out the door within 48 hours of being made." },
-              ].map((s) => (
-                <div className="step reveal" key={s.n}>
-                  <div className="n">{s.n}</div>
-                  <h3>{s.t}</h3>
-                  <p>{s.d}</p>
+            <div className="story">
+              {/* sticky image panel (desktop) */}
+              <div className="story-vis reveal" aria-hidden="true">
+                {STEPS.map((s, i) => (
+                  <img key={s.n} className={`story-img${i === 0 ? " active" : ""}`} data-idx={i} src={s.img} alt="" loading="eager" />
+                ))}
+                <div className="story-veil" />
+                <div className="story-meta">
+                  <b className="story-cap">{STEPS[0].t}</b>
+                  <div className="dots">
+                    {STEPS.map((s, i) => (
+                      <i key={s.n} className={i === 0 ? "active" : ""} />
+                    ))}
+                  </div>
                 </div>
-              ))}
+              </div>
+              {/* scrolling steps */}
+              <div className="steps">
+                {STEPS.map((s) => (
+                  <div className="step reveal" data-idx={s.n} key={s.n}>
+                    <div className="step-img"><img src={s.img} alt={s.t} loading="lazy" /></div>
+                    <div className="n">{s.n}</div>
+                    <h3>{s.t}</h3>
+                    <p>{s.d}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </section>

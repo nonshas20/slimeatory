@@ -42,3 +42,33 @@ Stage Summary:
 - Hero video background is live at http://localhost:3000 (preview via Preview Panel).
 - File location: /home/z/my-project/public/hero-bg.mp4.
 - To swap the video later, just replace public/hero-bg.mp4 with the same filename.
+
+---
+Task ID: 3
+Agent: main (Z.ai Code)
+Task: Generate images for the products/textures section and the "how a jar is made" process section; make the process section dynamic scroll-storytelling.
+
+Work Log:
+- Generated 11 brand-matched images via z-ai image CLI (warm cream palette, slime green/coral/peach/butter, NO purple):
+  - public/textures/{cloud-dough,glossy-glow,butter-bliss,jelly-burst,crunch-stack,magnetic-mud}.png (1152x864 landscape, macro slime textures)
+  - public/process/{01-source,02-formulate,03-mix,04-content,05-ship}.png (864x1152 portrait, storytelling sequence)
+  - Parallel batch hit 429 rate limit; recovered by generating sequentially.
+- Products section (src/app/page.tsx): replaced flat gradient swatches with real texture images clipped into organic morphing blob shapes (border-radius blob + cover bg-image + inset shadow + hover scale/rotate + overlay sheen). Added img field to PRODUCTS array.
+- Process section rebuilt as scroll-driven sticky storytelling:
+  - Two-column grid: left = sticky 74vh image panel (portrait) that crossfades between 5 images; right = 5 tall scrollable steps (min-height 64vh each).
+  - IntersectionObserver (rootMargin -40%/-40%) detects which step is at viewport center -> toggles .active on the matching .story-img (opacity + scale crossfade), updates the caption (.story-cap) to the step title, and lights the corresponding dot indicator.
+  - Bottom-gradient veil + caption + dot progress indicators overlay the image.
+  - Mobile (<880px): sticky panel hidden, each step shows its own inline image instead.
+  - All 5 panel images preload (loading=eager) to avoid blank flashes on fast scroll.
+- Cleaned up: hoisted sio observer into effect cleanup.
+
+Verification (Agent Browser + VLM):
+- Products: all 6 swatches confirmed rendering real photographic textures (img/img/img/img/img/img); VLM confirmed warm tones, no purple, premium, no broken/distorted images.
+- Storytelling: programmatic scroll-through confirmed caption cycles Source->Formulate->Hand-mix->Content->Ship with correct image .active toggling each step; all 5 images loaded (naturalWidth=864). VLM confirmed large portrait image + step numbers visible, warm palette, no purple, balanced layout.
+- Mobile (390px): story-vis display:none, step-img display:block (correct responsive swap). No errors. Lint clean.
+
+Stage Summary:
+- 11 generated images live in /public/textures and /public/process.
+- Products section now shows real slime texture photography in organic blob masks.
+- Process section is now a dynamic scroll-storytelling experience: sticky image crossfades + caption + dot progress as you scroll through the 5 steps.
+- Verified end-to-end on desktop + mobile at http://localhost:3000 (Preview Panel).
